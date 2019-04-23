@@ -15,6 +15,28 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
+<script type="text/javascript">
+
+  function baterPonto(idFuncionario){
+    $.ajax({
+      url : "processoPonto.php",
+      type : "POST",
+      data : {
+        idFunc: idFuncionario
+      }
+    })
+    .done(function(dado){
+      dados = JSON.parse(dado);
+      if(dados['status']=='sucesso'){
+        alert("Ponto batido");
+      }
+    })
+    .fail(function(){
+      alert("Erro");
+    })
+  }
+
+</script>
 
 <body>
 
@@ -69,8 +91,6 @@
     </div>
 
     <div class="col-sm-3">
-      <a href="index.html" class="btn btn-primary pull-right h2"><text id="busc">Bater ponto</text></a>
-      <a href="index.html" class="btn btn-primary pull-right h2"><text id="busc">Verificar Status</text></a>
     </div>
 
   </div> 

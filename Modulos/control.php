@@ -24,10 +24,10 @@
 							session_start();
 							$_SESSION['Token'] = $token;
 							$_SESSION['idUser'] = $idUser;
-							return array("Text" => "Login Realizado com sucesso", "Verificador" => true);
+							return array("Verificador" => true);
 						}
 						else{
-							return array("Text" => "Falha ao realizar login", "Verificador" => false);
+							return array("Verificador" => false);
 						}
 				}
  
@@ -36,21 +36,11 @@
 						$login = $this->realizarLogin($idUser);
 						if($login['Verificador']){
 
-							?>
-							<script type="text/javascript">
-								alert("Login Realizado com sucesso!");
-								location = "ADM.php";
-							</script>
-							<?php
+							echo (json_encode(["status" => "sucesso"]));
 
 						}
 						else{
-							?>
-							<script type="text/javascript">
-								alert("Falha Ao Realizar Login");
-								location = "LoginADM.php";
-							</script>
-							<?php
+							echo (json_encode(["status" => "falha"]));
 						}
 					}
 				}
@@ -68,24 +58,13 @@
 				public function realizarLogoff(){
 
 					if(is_null($_SESSION['token']) || is_null($_SESSION['idUser'])){
-
-						?>
-						<script type="text/javascript">
-							alert("Logoff realizado com sucesso!");
-							location = "LoginADM.php";
-						</script>
-						<?php	
+						echo (json_encode(["status" => "sucesso"]));
 					}
 					else{
-						$this->removerToken();
+						$this->removerToken($_SESSION['token']);
 						$_SESSION['token'] = null;
 						$_SESSION['idUser'] = null;
-						?>
-						<script type="text/javascript">
-							alert("Logoff realizado com sucesso!");
-							location = "LoginADM.php";
-						</script>
-						<?php
+						echo (json_encode(["status" => "sucesso"]));
 					}
 
 				}
